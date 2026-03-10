@@ -1,14 +1,15 @@
 process alignment{
-
-  if (params.container_engine == 'docker') {
-    containerOptions "-v \$(dirname ${params.genomeIdx}):\$(dirname ${params.genomeIdx})"
-  }
-
   label 'bigCPU'
   memory { params.genomeSize > 200000000 ? params.high_memory : params.low_memory}
   publishDir "${params.outDir}/QC/02_ALIGNMENT", mode: 'copy', pattern: "*_alignment_stats.txt"
   publishDir "${params.outDir}/RUN/00_ALIGNMENT", mode: 'copy', pattern: "*_aligned.bam", enabled:params.publishBam
-
+  
+  if (params.container_engine == 'docker') {
+    containerOptions "-v \$(dirname ${params.genomeIdx}):\$(dirname ${params.genomeIdx})"
+  }
+  if(params.container_engine == 'singularity'){
+    containerOptions "-B \$(dirname ${params.genomeIdx}):\$(dirname ${params.genomeIdx})"
+  }
 
   input:
   tuple val(sampleID), file(read1), file(read2)

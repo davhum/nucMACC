@@ -1,4 +1,5 @@
 process TSS_profile_mono{
+   label 'big'
    if (params.container_engine == 'docker') {
     containerOptions "-v \$(dirname ${params.TSS}):\$(dirname ${params.TSS})"
    }
@@ -6,7 +7,7 @@ process TSS_profile_mono{
     containerOptions "-B \$(dirname ${params.TSS}):\$(dirname ${params.TSS})"
   }
 
-  label 'big'
+  
 
   input:
   file(bw)
@@ -45,6 +46,7 @@ process TSS_profile_plot_mono{
 }
 
 process TSS_profile_sub{
+  label 'big'
   if (params.container_engine == 'docker') {
     containerOptions "-v \$(dirname ${params.TSS}):\$(dirname ${params.TSS})"
   }
@@ -52,7 +54,7 @@ process TSS_profile_sub{
     containerOptions "-B \$(dirname ${params.TSS}):\$(dirname ${params.TSS})"
   }
 
-  label 'big'
+  
 
   input:
   file(bw)
