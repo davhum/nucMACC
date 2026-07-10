@@ -31,7 +31,7 @@ colnames(count.table)<-gsub("_mono.bam", "", colnames(count.table))
 
 ### READ filtering based on raw reads
 #raw reads threshold
-raw.flt<-30
+raw.flt<-14
 
 #filter
 idx.raw<-apply(count.table,1,sum)>raw.flt
