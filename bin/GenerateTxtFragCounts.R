@@ -39,7 +39,11 @@ read_fastqc <- function(fastqc_file){
 
 read_alignedqc <- function(alignment_file, read_frame){
     aligned_reads <- c()
-    df <- read.table(alignment_file, header = FALSE, skip = 4, fill = TRUE)
+
+  lines <- readLines(alignment_file)
+  idx <- which(grepl("Multiseed full-index search", lines))
+
+    df <- read.table(alignment_file, header = FALSE, skip = idx, fill = TRUE)
     aligned_reads <- sum(strtoi(df[4,1]), strtoi(df[5,1]))
     return_frame <- data.frame(aligned_reads)
     colnames(return_frame) <- c("Aligned")
